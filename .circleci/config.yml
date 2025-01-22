@@ -14,7 +14,7 @@ jobs:
       - checkout
       - run: |
           echo "Install dependencies"
-          nvm clean install
+          mvn clean install
   test:
     docker:
       - image: eclipse-temurin:17-jdk-jammy
@@ -22,7 +22,7 @@ jobs:
       - checkout
       - run: |
           echo "Running tests"
-          nvm spring-boot:run
+          mvn spring-boot:run
 
 workflows:
   simple_workflow:
