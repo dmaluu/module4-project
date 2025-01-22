@@ -1,40 +1,38 @@
-# This config was automatically generated from your source code
-# Stacks detected: deps:java:.
 version: 2.1
+
+orbs:
+  docker-compose: circleci/docker-compose@1.5.0
+  maven: circleci/maven@3.3.0
+  heroku: circleci/heroku@2.0.0
+  docker: circleci/docker@2.1.4
+  snyk: snyk/snyk@1.5.0
+
 jobs:
-  test-java:
+  build:
     docker:
-      - image: cimg/openjdk:17.0
+      - image: circleci/openjdk:17 # Java 17 image; adjust if you're using a different version
     steps:
-      - checkout
-      - run:
-          name: Calculate cache key
-          command: |-
-            find . -name 'pom.xml' -o -name 'gradlew*' -o -name '*.gradle*' | \
-                    sort | xargs cat > /tmp/CIRCLECI_CACHE_KEY
-      - restore_cache:
-          key: cache-{{ checksum "/tmp/CIRCLECI_CACHE_KEY" }}
-      - run:
-          command: mvn verify
-      - store_test_results:
-          path: target/surefire-reports
-      - save_cache:
-          key: cache-{{ checksum "/tmp/CIRCLECI_CACHE_KEY" }}
+      - checkout # Check out the project code
+      - restore_cache: # Restore the dependency cache if available
+          keys:
+            - maven-dependencies-{{ checksum "pom.xml" }}
+            - maven-dependencies-
+      - maven/with-cache:
+          cache-key: maven-dependencies-{{ checksum "pom.xml" }}
+          steps:
+            - run: mvn dependency:go-offline # Pre-fetch Maven dependencies
+      - run: mvn clean package # Build the project
+      - save_cache: # Cache Maven dependencies for faster builds in the future
           paths:
-            - ~/.m2/repository
-  deploy:
-    # This is an example deploy job, not actually used by the workflow
-    docker:
-      - image: cimg/base:stable
-    steps:
-      # Replace this with steps to deploy to users
-      - run:
-          name: deploy
-          command: "#e.g. ./deploy.sh"
+            - ~/.m2
+          key: maven-dependencies-{{ checksum "pom.xml" }}
+      - store_artifacts: # Save the generated JAR/WAR file
+          path: target
+          destination: build-artifacts
+      - store_test_results: # Save test results for CircleCI's dashboard
+          path: target/surefire-reports
+
 workflows:
-  build-and-test:
+  simple_workflow:
     jobs:
-      - test-java
-    # - deploy:
-    #     requires:
-    #       - test-java
+      - build
