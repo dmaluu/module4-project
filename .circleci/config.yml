@@ -12,18 +12,14 @@ jobs:
       - image: eclipse-temurin:17-jdk-jammy
     steps:
       - checkout
-      - maven/install-packages:
-          pkg-manager: nvm
       - run: |
           echo "Install dependencies"
-          nvm install
+          nvm clean install
   test:
     docker:
       - image: eclipse-temurin:17-jdk-jammy
     steps:
       - checkout
-      - maven/install-packages:
-          pkg-manager: nvm
       - run: |
           echo "Running tests"
           nvm spring-boot:run
