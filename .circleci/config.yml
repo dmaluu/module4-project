@@ -9,7 +9,7 @@ orbs:
 jobs:
   build:
     docker:
-      - image: circleci/openjdk:17 # Java 17 image; adjust if you're using a different version
+      - image: eclipse-temurin:17-jdk-jammy
     steps:
       - checkout
       - run: mvn clean package # Build the project
