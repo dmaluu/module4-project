@@ -16,22 +16,13 @@ jobs:
           keys:
             - maven-dependencies-{{ checksum "pom.xml" }}
             - maven-dependencies-
-      - maven/with-cache:
-          cache-key: maven-dependencies-{{ checksum "pom.xml" }}
-          steps:
-            - run: mvn dependency:go-offline # Pre-fetch Maven dependencies
       - run: mvn clean package # Build the project
-      - save_cache: # Cache Maven dependencies for faster builds in the future
-          paths:
-            - ~/.m2
-          key: maven-dependencies-{{ checksum "pom.xml" }}
-      - store_artifacts: # Save the generated JAR/WAR file
-          path: target
-          destination: build-artifacts
-      - store_test_results: # Save test results for CircleCI's dashboard
-          path: target/surefire-reports
 
 workflows:
   simple_workflow:
     jobs:
-      - build
+      - build:
+          filters:
+            branches:
+              only:
+                - main
