@@ -11,11 +11,7 @@ jobs:
     docker:
       - image: circleci/openjdk:17 # Java 17 image; adjust if you're using a different version
     steps:
-      - checkout # Check out the project code
-      - restore_cache: # Restore the dependency cache if available
-          keys:
-            - maven-dependencies-{{ checksum "pom.xml" }}
-            - maven-dependencies-
+      - checkout
       - run: mvn clean package # Build the project
 
 workflows:
