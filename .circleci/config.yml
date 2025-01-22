@@ -10,8 +10,21 @@ jobs:
   build:
     docker:
       - image: eclipse-temurin:17-jdk-jammy
+      - image: postgis/postgis:15-3.3
+        environment:
+          POSTGRES_USER: ftsolutionadmin
+          POSTGRES_PASSWORD: ftsolution
+          POSTGRES_DB: ftsolution_db
     steps:
       - checkout
+      - run:
+          name: Wait for PostgreSQL to Start
+          command: |
+            for i in {1..10}; do
+              nc -z spring_demo_db 5432 && echo "PostgreSQL is ready!" && break;
+              echo "Waiting for PostgreSQL to start...";
+              sleep 5;
+            done
       - run:
           name: Install Maven
           command: |
