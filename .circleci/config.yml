@@ -1,7 +1,6 @@
 version: 2.1
 
 orbs:
-  docker-compose: circleci/docker-compose@1.5.0
   maven: circleci/maven@3.3.0
   heroku: circleci/heroku@2.0.0
   docker: circleci/docker@2.1.4
