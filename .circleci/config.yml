@@ -44,7 +44,7 @@ jobs:
           command: mvn install -DskipTests
       - run: |
           echo "Running tests"
-          mvn spring-boot:run
+          mvn test
 
 workflows:
   simple_workflow:
