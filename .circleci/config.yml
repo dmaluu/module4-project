@@ -11,9 +11,7 @@ jobs:
   build:
     docker:
       - image: eclipse-temurin:17-jdk-jammy
-    services:
       - image: postgis/postgis:15-3.3
-        name: postgres
         environment:
           POSTGRES_USER: ftsolutionadmin
           POSTGRES_PASSWORD: ftsolution
@@ -30,10 +28,9 @@ jobs:
   test:
     docker:
       - image: eclipse-temurin:17-jdk-jammy
-    services:
       - image: postgis/postgis:15-3.3
-        name: postgres
         environment:
+          POSTGRES_HOST: postgres
           POSTGRES_USER: ftsolutionadmin
           POSTGRES_PASSWORD: ftsolution
           POSTGRES_DB: ftsolution_db
