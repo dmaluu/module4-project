@@ -16,6 +16,8 @@ jobs:
           POSTGRES_USER: ftsolutionadmin
           POSTGRES_PASSWORD: ftsolution
           POSTGRES_DB: ftsolution_db
+    services:
+      - postgres
     steps:
       - checkout
       - run:
@@ -34,6 +36,8 @@ jobs:
           POSTGRES_USER: ftsolutionadmin
           POSTGRES_PASSWORD: ftsolution
           POSTGRES_DB: ftsolution_db
+    services:
+      - postgres
     steps:
       - checkout
       - run:
