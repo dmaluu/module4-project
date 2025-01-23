@@ -53,9 +53,16 @@ jobs:
       - checkout
       - docker/check
       - docker/build:
-          image: dmaluu/module4-project
-      - docker/push:
-          image: dmaluu/module4-project
+          image: dmaluu/module4-project:${CIRCLE_SHA1}
+      - run:
+          name: Tag the Image as Latest
+          command: |
+            docker tag dmaluu/module4-project:${CIRCLE_SHA1} dmaluu/module4-project:latest
+      - run:
+          name: Push Tags to DockerHub
+          command: |
+            docker push dmaluu/module4-project:${CIRCLE_SHA1}
+            docker push dmaluu/module4-project:latest
   deploy:
     docker:
       - image: dmaluu/module4-project
