@@ -31,7 +31,7 @@ public class ResaleHDBServiceImpl {
         resaleHDBToUpdate.setFlatType(resaleHDB.getFlatType());
         resaleHDBToUpdate.setFloorAreaSqm(resaleHDB.getFloorAreaSqm());
         resaleHDBToUpdate.setLeaseCommenceDate(resaleHDB.getLeaseCommenceDate());
-        resaleHDBToUpdate.setMonth(resaleHDB.getMonth());
+        resaleHDBToUpdate.setResaleMonth(resaleHDB.getResaleMonth());
         resaleHDBToUpdate.setRemainingLease(resaleHDB.getRemainingLease());
         resaleHDBToUpdate.setResalePrice(resaleHDB.getResalePrice());
         resaleHDBToUpdate.setStoreyRange(resaleHDB.getStoreyRange());

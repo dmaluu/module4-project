@@ -33,10 +33,10 @@ public class ResaleHdb {
     @JsonIgnoreProperties({ "user", "flat" })
     private Set<Favourite> favourites;
 
-    @Column(name = "month")
+    @Column(name = "resale_month")
     @NotBlank(message = "Field Month is mandatory")
     @Size(min = 7, max = 7, message = "Must follow YYYY-MM format in 7 characters")
-    private String month;
+    private String resaleMonth;
 
     @Column(name = "town")
     @NotBlank(message = "Field Town is mandatory")
@@ -86,7 +86,7 @@ public class ResaleHdb {
     public ResaleHdb(String month, String town, String flatType, String block, String streetName, String storeyRange,
             Double floorAreaSqm, String flatModel, Integer leaseCommenceDate, String remainingLease,
             Integer resalePrice) {
-        this.month = month;
+        this.resaleMonth = month;
         this.town = town;
         this.flatType = flatType;
         this.block = block;
