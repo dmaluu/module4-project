@@ -80,18 +80,20 @@ jobs:
     docker:
       - image: dmaluu/module4-project:latest
     steps:
-      - setup_remote_docker
+      - setup_remote_docker:
+        docker_layer_caching: true  # Optional, helps with caching layers to improve speed
+        setup_remote_docker: true  # Ensure Docker is set up for remote use
       - heroku/install
       - checkout
       - run:
           name: Heroku Container Push
           command: |
-            docker --version
             heroku --version
-            heroku container:login
-            heroku stack:set container -a dmaluu-devops
-            heroku container:push web -a dmaluu-devops
-            heroku container:release web -a dmaluu-devops
+            docker --version
+            # heroku container:login
+            # heroku stack:set container -a dmaluu-devops
+            # heroku container:push web -a dmaluu-devops
+            # heroku container:release web -a dmaluu-devops
 workflows:
   simple_workflow:
     jobs:
