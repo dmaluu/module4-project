@@ -88,10 +88,10 @@ jobs:
           command: |
             heroku --version
             docker --version
-            # heroku container:login
-            # heroku stack:set container -a dmaluu-devops
-            # heroku container:push web -a dmaluu-devops
-            # heroku container:release web -a dmaluu-devops
+            heroku container:login
+            heroku stack:set container -a dmaluu-devops
+            heroku container:push web -a dmaluu-devops
+            heroku container:release web -a dmaluu-devops
 workflows:
   simple_workflow:
     jobs:
