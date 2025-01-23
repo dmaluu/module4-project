@@ -56,7 +56,7 @@ jobs:
           name: Build Docker image
           command: |
             # Get the commit hash or version number to tag the image
-            IMAGE_TAG=$(git rev-parse --short HEAD)  # Or you could use a date or version
+            IMAGE_TAG=v1.0.0
 
             # Build the image with both a version tag and the :latest tag
             docker build -t dmaluu/module4-project:$IMAGE_TAG -t dmaluu/module4-project:latest .
