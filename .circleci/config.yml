@@ -56,6 +56,20 @@ jobs:
           image: dmaluu/module4-project
       - docker/push:
           image: dmaluu/module4-project
+  deploy:
+    docker:
+      - image: dmaluu/module4-project
+    steps:
+      - setup_remote_docker
+      - heroku/install
+      - checkout
+      - run:
+          name: Heroku Container Push
+          command: |
+            heroku container:login
+            heroku stack:set container -a dmaluu-devops
+            heroku container:push web -a dmaluu-devops
+            heroku container:release web -a dmaluu-devops
 workflows:
   simple_workflow:
     jobs:
