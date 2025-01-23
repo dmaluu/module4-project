@@ -52,10 +52,26 @@ jobs:
       - setup_remote_docker
       - checkout
       - docker/check
-      - docker/build:
-          image: dmaluu/module4-project
-      - docker/push:
-          image: dmaluu/module4-project
+      - run:
+          name: Build Docker image
+          command: |
+            # Get the commit hash or version number to tag the image
+            IMAGE_TAG=$(git rev-parse --short HEAD)  # Or you could use a date or version
+
+            # Build the image with both a version tag and the :latest tag
+            docker build -t dmaluu/module4-project:$IMAGE_TAG -t your-dockerhub-username/your-app:latest .
+
+      - run:
+          name: Log in to DockerHub
+          command: |
+            echo $DOCKER_PASSWORD | docker login -u $DOCKER_LOGIN --password-stdin
+
+      - run:
+          name: Push Docker images
+          command: |
+            # Push both the specific tag and the :latest tag to DockerHub
+            docker push dmaluu/module4-project:$IMAGE_TAG
+            docker push dmaluu/module4-project:latest
   deploy:
     docker:
       - image: dmaluu/module4-project
@@ -73,31 +89,31 @@ jobs:
 workflows:
   simple_workflow:
     jobs:
-      - build:
-          filters:
-            branches:
-              only:
-                - main
-                - release
-      - test:
-          requires:
-            - build
-          filters:
-            branches:
-              only:
-                - main
-                - release
-      - publish:
-          requires:
-            - test
-          filters:
-            branches:
-              only:
-                - main
-                - release
+      # - build:
+      #     filters:
+      #       branches:
+      #         only:
+      #           - main
+      #           - release
+      # - test:
+      #     requires:
+      #       - build
+      #     filters:
+      #       branches:
+      #         only:
+      #           - main
+      #           - release
+      # - publish:
+      #     requires:
+      #       - test
+      #     filters:
+      #       branches:
+      #         only:
+      #           - main
+      #           - release
       - deploy:
-          requires:
-            - publish
+          # requires:
+          #   - publish
           filters:
             branches:
               only:
