@@ -59,7 +59,7 @@ jobs:
             IMAGE_TAG=$(git rev-parse --short HEAD)  # Or you could use a date or version
 
             # Build the image with both a version tag and the :latest tag
-            docker build -t dmaluu/module4-project:$IMAGE_TAG -t your-dockerhub-username/your-app:latest .
+            docker build -t dmaluu/module4-project:$IMAGE_TAG -t dmaluu/module4-project:latest .
 
       - run:
           name: Log in to DockerHub
@@ -74,12 +74,7 @@ jobs:
             docker push dmaluu/module4-project:latest
   deploy:
     docker:
-      - image: eclipse-temurin:17-jdk-jammy
-      - image: postgis/postgis:15-3.3
-        environment:
-          POSTGRES_USER: ftsolutionadmin
-          POSTGRES_PASSWORD: ftsolution
-          POSTGRES_DB: ftsolution_db
+      - dmaluu/module4-project:latest
     steps:
       - setup_remote_docker
       - heroku/install
@@ -108,17 +103,17 @@ workflows:
       #         only:
       #           - main
       #           - release
-      # - publish:
-      #     requires:
-      #       - test
-      #     filters:
-      #       branches:
-      #         only:
-      #           - main
-      #           - release
-      - deploy:
+      - publish:
           # requires:
-          #   - publish
+          #   - test
+          filters:
+            branches:
+              only:
+                - main
+                - release
+      - deploy:
+          requires:
+            - publish
           filters:
             branches:
               only:
