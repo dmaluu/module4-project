@@ -46,7 +46,16 @@ jobs:
       - run: |
           echo "Running tests"
           mvn test
-
+  publish:
+    executor: docker/docker
+    steps:
+      - setup_remote_docker
+      - checkout
+      - docker/check
+      - docker/build:
+          image: dmaluu/module4-project
+      - docker/push:
+          image: dmaluu/module4-project
 workflows:
   simple_workflow:
     jobs:
@@ -59,6 +68,14 @@ workflows:
       - test:
           requires:
             - build
+          filters:
+            branches:
+              only:
+                - main
+                - release
+      - publish:
+          requires:
+            - test
           filters:
             branches:
               only:
