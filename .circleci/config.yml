@@ -53,9 +53,15 @@ jobs:
       - checkout
       - docker/check
       - docker/build:
-          image: dmaluu/module4-project:latest
+          image: dmaluu/module4-project
+          tags: |
+            dmaluu/module4-project:latest
+            dmaluu/module4-project:${CIRCLE_SHA1}
       - docker/push:
-          image: dmaluu/module4-project:latest
+          image: dmaluu/module4-project
+          tags: |
+            dmaluu/module4-project:latest
+            dmaluu/module4-project:${CIRCLE_SHA1}
   deploy:
     docker:
       - image: dmaluu/module4-project
