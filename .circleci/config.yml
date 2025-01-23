@@ -74,7 +74,7 @@ jobs:
             docker push dmaluu/module4-project:latest
   deploy:
     docker:
-      - dmaluu/module4-project:latest
+      - image: dmaluu/module4-project:latest
     steps:
       - setup_remote_docker
       - heroku/install
@@ -111,11 +111,11 @@ workflows:
               only:
                 - main
                 - release
-      - deploy:
-          requires:
-            - publish
-          filters:
-            branches:
-              only:
-                - main
-                - release
+      # - deploy:
+      #     requires:
+      #       - publish
+      #     filters:
+      #       branches:
+      #         only:
+      #           - main
+      #           - release
