@@ -80,13 +80,14 @@ jobs:
     docker:
       - image: dmaluu/module4-project:latest
     steps:
+      - setup_remote_docker
       - heroku/install
       - checkout
-      - setup_remote_docker:
-          docker_layer_caching: true
       - run:
           name: Heroku Container Push
           command: |
+            docker --version
+            heroku --version
             heroku container:login
             heroku stack:set container -a dmaluu-devops
             heroku container:push web -a dmaluu-devops
