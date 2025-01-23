@@ -1,12 +1,13 @@
-package sg.edu.ntu.ftbsolutionscrm.repository;
+// package sg.edu.ntu.ftbsolutionscrm.repository;
 
-import java.util.Optional;
+// import java.util.Optional;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+// import org.springframework.data.jpa.repository.JpaRepository;
 
-import sg.edu.ntu.ftbsolutionscrm.entity.FacebookLogin;
+// import sg.edu.ntu.ftbsolutionscrm.entity.FacebookLogin;
 
-public interface FacebookLoginRepository extends JpaRepository<FacebookLogin, Long> {
+// public interface FacebookLoginRepository extends JpaRepository<FacebookLogin,
+// Long> {
 
-    Optional<FacebookLogin> findByFacebookUid(String facebookUid);
-}
+// Optional<FacebookLogin> findByFacebookUid(String facebookUid);
+// }

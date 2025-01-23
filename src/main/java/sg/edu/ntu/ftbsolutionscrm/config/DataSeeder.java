@@ -6,19 +6,19 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import sg.edu.ntu.ftbsolutionscrm.entity.Login;
-import sg.edu.ntu.ftbsolutionscrm.entity.FacebookLogin;
+// import sg.edu.ntu.ftbsolutionscrm.entity.FacebookLogin;
 import sg.edu.ntu.ftbsolutionscrm.repository.LoginRepository;
-import sg.edu.ntu.ftbsolutionscrm.repository.FacebookLoginRepository;
+// import sg.edu.ntu.ftbsolutionscrm.repository.FacebookLoginRepository;
 
 @Configuration
 public class DataSeeder {
 
-    @Value("${facebook.mock-uuid}") //get value from app.properties
-    private String facebookMockUuid;
+    // @Value("${facebook.mock-uuid}") //get value from app.properties
+    // private String facebookMockUuid;
 
     @Bean
-    //Make sure it runs after app start
-    CommandLineRunner initDataBase(LoginRepository loginRepository, FacebookLoginRepository facebookLoginRepository) {
+    // Make sure it runs after app start
+    CommandLineRunner initDataBase(LoginRepository loginRepository) {
         return args -> {
             // Seed admin user
             loginRepository.findByEmail("admin@admin.com").orElseGet(() -> {
@@ -29,12 +29,13 @@ public class DataSeeder {
             });
 
             // Seed Facebook UID for mock test
-            if (facebookLoginRepository.findByFacebookUid(facebookMockUuid).isEmpty()) {
-                FacebookLogin facebookLogin = new FacebookLogin();
-                facebookLogin.setFacebookUid(facebookMockUuid);
-                facebookLoginRepository.save(facebookLogin);
-                System.out.println("Database seeded with mock Facebook UID: " + facebookMockUuid);
-            }
+            // if (facebookLoginRepository.findByFacebookUid(facebookMockUuid).isEmpty()) {
+            // FacebookLogin facebookLogin = new FacebookLogin();
+            // facebookLogin.setFacebookUid(facebookMockUuid);
+            // facebookLoginRepository.save(facebookLogin);
+            // System.out.println("Database seeded with mock Facebook UID: " +
+            // facebookMockUuid);
+            // }
         };
     }
 }
