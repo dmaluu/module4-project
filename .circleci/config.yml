@@ -53,9 +53,9 @@ jobs:
       - checkout
       - docker/check
       - docker/build:
-          image: dmaluu/module4-project
+          image: dmaluu/module4-project:latest
       - docker/push:
-          image: dmaluu/module4-project
+          image: dmaluu/module4-project:latest
   deploy:
     docker:
       - image: dmaluu/module4-project
