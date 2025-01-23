@@ -78,11 +78,9 @@ jobs:
             docker push dmaluu/module4-project:latest
   deploy:
     docker:
-      - image: dmaluu/module4-project:latest
+      - image: dmaluu/module4-project
     steps:
-      - setup_remote_docker:
-          docker_layer_caching: true # Optional, helps with caching layers to improve speed
-          setup_remote_docker: true # Ensure Docker is set up for remote use
+      - setup_remote_docker
       - heroku/install
       - checkout
       - run:
