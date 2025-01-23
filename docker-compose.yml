@@ -22,6 +22,6 @@ services:
     ports:
       - "8088:8088"
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://spring_demo_db:5432/ftsolution_db
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/ftsolution_db
       SPRING_DATASOURCE_USERNAME: ftsolutionadmin
       SPRING_DATASOURCE_PASSWORD: ftsolution

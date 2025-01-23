@@ -13,7 +13,6 @@ jobs:
       - image: eclipse-temurin:17-jdk-jammy
       - image: postgis/postgis:15-3.3
         environment:
-          POSTGRES_HOST: spring_demo_db
           POSTGRES_USER: ftsolutionadmin
           POSTGRES_PASSWORD: ftsolution
           POSTGRES_DB: ftsolution_db
