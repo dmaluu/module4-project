@@ -70,6 +70,9 @@ jobs:
       - run:
           name: Push Docker images
           command: |
+            # Get the commit hash or version number to tag the image
+            IMAGE_TAG=v1.0.0
+            echo "IMAGE_TAG: $IMAGE_TAG"
             # Push both the specific tag and the :latest tag to DockerHub
             docker push dmaluu/module4-project:$IMAGE_TAG
             docker push dmaluu/module4-project:latest
