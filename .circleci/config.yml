@@ -74,7 +74,12 @@ jobs:
             docker push dmaluu/module4-project:latest
   deploy:
     docker:
-      - image: dmaluu/module4-project
+      - image: eclipse-temurin:17-jdk-jammy
+      - image: postgis/postgis:15-3.3
+        environment:
+          POSTGRES_USER: ftsolutionadmin
+          POSTGRES_PASSWORD: ftsolution
+          POSTGRES_DB: ftsolution_db
     steps:
       - setup_remote_docker
       - heroku/install
