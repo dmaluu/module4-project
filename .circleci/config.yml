@@ -115,11 +115,11 @@ workflows:
               only:
                 - main
                 - release
-      # - deploy:
-      #     requires:
-      #       - publish
-      #     filters:
-      #       branches:
-      #         only:
-      #           - main
-      #           - release
+      - deploy:
+          requires:
+            - publish
+          filters:
+            branches:
+              only:
+                - main
+                - release
