@@ -19,10 +19,6 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Install postgres client
-          command: |
-            apt-get update && apt-get install -y postgresql-client-11
-      - run:
           name: Install Maven
           command: |
             apt-get update && apt-get install -y maven
